@@ -1,0 +1,6 @@
+[Core]
+name = wolframAlpha
+module = wolframAlpha
+
+[Documentation]
+description = Query the Computational Knowledge Engine

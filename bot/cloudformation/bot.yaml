@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Slack bot
+
+Parameters:
+
+  ClusterName:
+    Type: String
+    Default: microservices-cluster
+
+  ServiceName:
+    Type: String
+    Default: bot
+
+  TaskRoleArn:
+    Type: String
+    Default: xxxx/bot
+
+  Image:
+    Type: String
+    Default: dkr.ecr.us-west-2.amazonaws.com/bot
+
+  LogsGroup:
+    Type: String
+    Default: microservices-logs
+
+  WorkingDirectory:
+    Type: String
+    Default: /bot
+
+Resources:
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      TaskRoleArn: !Ref TaskRoleArn
+      ContainerDefinitions:
+        -
+          Name: !Ref ServiceName
+          Command:
+            - errbot
+          Cpu: 50
+          Environment:
+            -
+              Name: AWS_DEFAULT_REGION
+              Value: !Ref 'AWS::Region'
+          Image: !Ref Image
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref LogsGroup
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: !Ref ServiceName
+          Memory: 300
+          WorkingDirectory: !Ref WorkingDirectory
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ClusterName
+      DesiredCount: 1
+      ServiceName: !Ref ServiceName
+      TaskDefinition: !Ref TaskDefinition

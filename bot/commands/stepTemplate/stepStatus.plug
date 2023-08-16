@@ -1,0 +1,6 @@
+[Core]
+Name = stepTemplate
+Module = stepStatus
+
+[Documentation]
+Description = Send back to Slack a list of Projects using an old version of Step Templates on Octopus

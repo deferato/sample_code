@@ -1,0 +1,13 @@
+{
+  "cuongnv23/err-aws-slack": {
+    "AWS": {
+      "path": "aws.plug",
+      "repo": "https://github.com/cuongnv23/err-aws-slack",
+      "documentation": "AWS plugin interacts with awscli",
+      "name": "AWS",
+      "python": "2+",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6817856?v=4",
+      "score": 0.3599999999999999
+    }
+  }
+}
